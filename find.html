@@ -45,7 +45,7 @@
 // Test descriptions:
 // #1: 'It should run array.length times.'
 // #2: 'It should pass in ith element as the first argument.'
-// #3: 'It should pass in index as the second argument.'
+// #3: 'It should pass in ith position as the second argument.'
 // #4: 'It should pass in the original array as the third argument.'
 // #5: 'It should accept an optional this argument.'
 // #6: 'If no optional this argument, this should be be undefined.'
@@ -86,7 +86,7 @@ tests({
       eq(element, 1);
     }); 
   },
-  'It should pass in index as the second argument.': function() {
+  'It should pass in ith position as the second argument.': function() {
     find([1], function(element, index) {
       eq(index, 0);
     });
