@@ -16,46 +16,7 @@
 // The find method executes the callback function once for each index of the array 
 // until the callback returns a truthy value. 
 
-// callback is invoked for every index of the array, not just those with assigned values.
-// The find method does not mutate the array on which it is called. 
 
-// Case A: A truthy value is found.
-  // find immediately returns the value of that element.
-// Case B: A truthy value is not found.
-  // find returns undefined.
-
-// Case C: thisArg parameter is provided to find.
-  // thisArg parameter will be used as the this value inside each invocation of the callback.
-// Case D: thisArg parameter is not provided to find.
-  // undefined is used.
-
-// Cases E/F are not needed because we handle them in the three tests below.
-  // Case E: Callback is not provided.
-    // find won't mutate the array on which its called.
-  // Case F: Callback is provided.
-    // find will first set its processed elements before the first invocation of callback.
-
-  // callback will not visit any elements added to the array after the call to find begins.
-  // If an existing, yet-unvisited element of the array is changed by callback, its value 
-    // passed to the callback will be the value at the time find visits that element's index.
-  // Elements that are deleted are still visited.
-
-// Test descriptions:
-// #1: 'It should run array.length times.'
-// #2: 'It should pass in ith element as the first argument.'
-// #3: 'It should pass in ith position as the second argument.'
-// #4: 'It should pass in the original array as the third argument.'
-// #5: 'It should accept an optional this argument.'
-// #6: 'If no optional this argument, this should be be undefined.'
-// #7: 'If truthy value, it should immediately return the value of that element.'
-// #8: 'If no truthy value, it should return undefined.'
-// #9: 'It should also run on empty holes in the array.'
-// #10: 'It should not allow callback to visit any elements added to array after call to find begins.'
-// #11: 'It should pass in the current value of an element to the callback.'
-// #12: 'It should still call callback on deleted elements.'
-// #13: 'It should not mutate the original array.'
-
-// Code:
 function find(originalArray, callback, optionalThis) {
   var findCallback = callback;
   var arrayLength = originalArray.length;
