@@ -17,41 +17,6 @@
   // The find method executes the callback function once for each index of the array 
   // until the callback returns a truthy value.
 
-// The range of elements processed by findIndex is set before the first invocation of callback.
-// callback will not process the elements appended to the array after the call to findIndex begins.
-// If an existing, unvisited element of the array is changed by callback, its value passed to the 
-  // callback will be the value at the time findIndex visits the element's index.
-// Elements that are deleted are still visited.
-
-// Case A: callback returns a truthy value.
-  // findIndex immediately returns the index of that element.
-// Case B: callback does not return a truthy value, or array.length === 0.
-  // findIndex returns -1. 
-
-// Case C: thisArg parameter is passed to findIndex.
-  // it will be used as the this inside each invocation of the callback. 
-// Case D: thisArg parameter is not provided.
-  // undefined is used.
-
-// Edge cases:
-  // callback is run even for indexes with unassigned values. (not included)
-
-// Test descriptions:
-// '#1: It should run array.length times.'
-// '#2: It should pass in ith element as the first argument to the callback.'
-// '#3: It should pass in ith position as the second argument to the callback.'
-// '#4: It should pass in the original array as the third argument to the callback.'
-// '#5: It should accept an optional this argument.'
-// '#6: If no optional this argument, this should be be undefined.'
-// '#7: If truthy value, it should immediately return the index of that element.'
-// '#8: If no truthy value, it should return -1.'
-// '#9: If length of array is 0, it should return -1.'
-// '#10: It should also run on empty holes in the array.'
-// '#11: It should not allow callback to visit any elements added to array after call to findIndex begins.'
-// '#12: It should pass in the most current value of an element to the callback.'
-// '#13: It should still call callback on deleted elements.'
-
-//Code:
 
 function findIndex(originalArray, callback, optionalThis) {
   var findIndexCallback = callback;
