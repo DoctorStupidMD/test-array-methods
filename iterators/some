@@ -16,45 +16,7 @@
 // Description:
   // The some() method tests whether at least one element in the array passes 
   // the test implemented by the provided function. It returns a Boolean value.
-
-// Case A: A truthy element is found.
-  // Immediately return true.
-// Case B: A truthy element is not found.
-  // Return false.
-
-// Case C: thisArg parameter is provided to some.
-  // It will be used as callback's this value.
-// Case D: thisArg parameter is not provided to some.
-  // undefined will be used as its this value.
-
-// Case E: Callback is not invoked for indexes:
-  // Which have been deleted.
-  // Which have never been assigned values (no holes or undefined).
-
-// some does not mutate the array on which it is called.
-// Elements appended to the array after the call to some begins 
-  // will not be visited by callback.
-// If an existing, unvisited element of the array is changed by callback, 
-  // its value passed to the visiting callback will be the value at the time 
-  // that some visits that element's index.
-// An empty array returns false for any condition.
-
-// Test descriptions:
-// '#1: It should pass in ith element as the first argument to the callback.'
-// '#2: It should pass in ith position as the second argument to the callback.'
-// '#3: It should pass in the original array as the third argument to the callback.'
-// '#4: It should accept an optional this argument.'
-// '#5: If no optional this argument, this should be be undefined.'
-// '#6: It should return true if any array element passes the test in callback.'
-// '#7: It should return false immediately if no array elements pass the test in callback.'
-// '#8: It should not run callback on elements that are appended after the call begins.'
-// '#9: It should skip holes in the array.'
-// '#10: It should skip deleted elements.'
-// '#11: It should not mutate the array on which it is called.'
-// '#12: It should return false if the array is empty.'
-// '#13: It should run callback array.length times if no elements in the array pass the test.'
-
-// Code:
+  
 
 function some(array, callback, optionalThis) {
   var someCallback = callback;
