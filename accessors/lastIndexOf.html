@@ -68,11 +68,11 @@ tests({
     var result = lastIndexOf([1, 2, 1], 1, -2);
     eq(result, 0);
   },
-  'If fromIndex is negative and the calculated fromIndex from the offset is less than 0, it should return -1. ': function() {
+  'If fromIndex is negative and the calculated fromIndex from the offset is less than 0, it should return -1.': function() {
     var result = lastIndexOf([1, 2, 1], 1, -10);
     eq(result, -1);
   },
-  'It should compare searchElement to elements of the array using strict equality. ': function() {
+  'It should compare searchElement to elements of the array using strict equality.': function() {
     var testArray = [1];
     var result = lastIndexOf(testArray, 1);
     eq(testArray[result] === 1, true);
