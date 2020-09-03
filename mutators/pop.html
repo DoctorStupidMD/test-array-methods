@@ -16,11 +16,12 @@
 
 
 function pop(array) {
-
-  if (typeof array === 'string' || 
+  if (typeof array === 'string' ||
       array instanceof Function || 
-      array instanceof String) {
-    throw new TypeError('First argument must be an array or an array-like object');
+      array instanceof String ||
+      array === null ||
+      array === undefined) {
+        throw new TypeError('First argument must be an array or an array-like object');
   }
 
   if (Number.isNaN(array.length) || 
@@ -37,8 +38,10 @@ function pop(array) {
     var poppedEl = array[array.length - 1];
     delete array[array.length - 1];
     array.length--;
+    return poppedEl;
+  } else {
+    array.length = 0;
   }
-  return poppedEl;
 }
 
 tests({
