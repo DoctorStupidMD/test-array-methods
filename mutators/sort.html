@@ -1,0 +1,164 @@
+<script src="../simpletest.js"></script>
+<script>
+
+// Function signature:
+  // sort(array, [compareFunction])
+
+// Callback parameters:
+  // Array
+  // compareFunction (optional)
+    // firstEl
+    // secondEl
+
+// Return value:
+  // The sorted array. Note that the array is sorted in place, and no copy is made.
+
+// Description:
+  // It sorts the elements of an array in place and returns the sorted array. The default 
+  // sort order is ascending, built upon converting the elements into strings, then comparing 
+  // their sequences of UTF-16 code units values.
+
+
+function sort(array, compareFunction) {
+  array = Object.prototype.valueOf.call(array);
+
+  if (typeof array === undefined || array === null) {
+    throw new TypeError('First argument must be an array or an array-like object');
+  }
+
+  if (!compareFunction) { // Has no compareFunction.
+    for (var i = 0; i < array.length; i++) {
+      // Low and high determined by their index position in the array.
+      var lowEl = array[i];
+      var highEl = array[i + 1];
+
+      // Converting to String ensures unicode sorting. Now, we can compare them properly.
+      var a = String(array[i]);
+      var b = String(array[i + 1]);
+
+      // a and b are swapped if highEl is a lesser value than lowEl.
+      if (b < a) {
+        array[i] = highEl;
+        array[i + 1] = lowEl;
+
+        // i++ will reset to 0 when elements are switched, to avoid an endless loop.
+        if (i > 0) {
+          i = -1;
+        }
+      }
+    }
+  } else { // Has compareFunction.
+    for (var i = 0; i < array.length; i++) {
+      var lowEl = array[i];
+      var highEl = array[i + 1];
+
+      if (i + 1 < array.length) { // As long as highEl is still within the array length.
+        if (lowEl !== undefined || highEl !== undefined) { // As long as neither are undefined, so we can compare them.
+          var compareTwoElements = compareFunction(array[i], array[i + 1]); // Loops through all array indexes.
+          // Sorts according to compareFunction || shifts undefined elements to the end.
+          if (compareTwoElements > 0 || lowEl === undefined) {
+            array[i] = highEl;
+            array[i + 1] = lowEl;
+
+            // i++ will reset to 0 when elements are switched, to avoid an endless loop.
+            if (i > 0) {
+              i = -1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return array;
+}
+
+tests({
+  'It should return the same array, not a copy.': function() {
+    var testArray = [1, 2, 3];
+    var result = sort(testArray);
+    eq(result, testArray);
+  },
+  'If no compareFunction, it should convert elements to strings and sort according to each character\'s Unicode code point value.': function() {
+    var testArray = ['April', -4, 'October', 9];
+    sort(testArray);
+    eq(testArray[0], -4);
+    eq(testArray[1], 9);
+    eq(testArray[2], 'April');
+    eq(testArray[3], 'October');
+  },
+  'It should sort all undefined elements to the end of the array, with no call to compareFunction.': function() {
+    var testArray = ['April', undefined, -4, 'October', undefined, 9];
+    sort(testArray);
+    eq(testArray[0], -4);
+    eq(testArray[1], 9);
+    eq(testArray[2], 'April');
+    eq(testArray[3], 'October');
+    eq(testArray[4], undefined);
+    eq(testArray[5], undefined);
+  },
+  'If compareFunction, it should sort all elements to the return value of the compare function.': function() {
+    function testFunction(a, b) {
+      return a - b;
+    }
+    var testArray = [4, 2, 8, 7];
+    sort(testArray, testFunction);
+    eq(testArray[0], 2);
+    eq(testArray[1], 4);
+    eq(testArray[2], 7);
+    eq(testArray[3], 8);
+  },
+  'If compareFunction, undefined elements should be sorted to the end of the array without being passed to compareFunction': function() {
+    function testFunction(a, b) {
+      return a - b;
+    }
+    var testArray = [undefined, 2, undefined, 7];
+    sort(testArray, testFunction);
+    eq(testArray[0], 2);
+    eq(testArray[1], 7);
+    eq(testArray[2], undefined);
+    eq(testArray[3], undefined);
+  },
+  'It should accept array-like objects.': function() {
+    var testObject = {
+      0: 'trumpet',
+      1: 'bass',
+      2: 'harp',
+      length: 3
+    }
+    sort(testObject);
+    eq(testObject[0], 'bass');
+    eq(testObject[1], 'harp');
+    eq(testObject[2], 'trumpet');
+  },
+  'If the first argument is a function, it should return that function.': function() {
+    var result = sort(function(){});
+    eq(typeof result, 'function');
+  },
+  'If the first argument is a boolean, it should return that boolean.': function() {
+    var result = sort(false);
+    eq(result, false);
+  },
+  'If the first argument is a number, it should return that number.': function() {
+    var result = sort(7);
+    eq(result, 7);
+  },
+  'If the first argument is null, it should throw TypeError.': function() {
+    try {
+      sort(null);
+    } catch(e) {
+      var isTypeError = e instanceof TypeError;
+    }
+    eq(isTypeError, true);
+  },
+  'If the first argument is undefined, it should throw TypeError.': function() {
+    try {
+      sort(undefined);
+    } catch(e) {
+      var isTypeError = e instanceof TypeError;
+    }
+    eq(isTypeError, true);
+  }
+});
+
+</script>
