@@ -26,12 +26,12 @@ function reverse(array) {
 
   array = Object.valueOf.call(array);
 
-  // Looping through the array, assign array indexes to copy's indexes.
+  // Looping through the array, assign array indices to copy's indices.
   for (i = 0; i < array.length; i++) {
     arrayCopy[i] = array[i];
   }
 
-  // Loops in reverse; array indexes are set to the copy's indexes decrementing by -1.
+  // Loops in reverse; array indices are set to the copy's indices decrementing by -1.
   for (i = lastIndex; i >= 0; i--) {
     if (i in arrayCopy) {
       array[i] = arrayCopy[lastIndex - i] // 
