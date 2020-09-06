@@ -75,10 +75,10 @@ function copyWithin(array, target, start, end) {
   // Begin at target; set the original array's indices to the copy's indices, beginning at start.
   while (timesToRun > 0) {
     var startOfCopy = arrayCopy[startIndex];
-			array[target] = startOfCopy;
-			target++;
-			startIndex++;
-			timesToRun--;
+      array[target] = startOfCopy;
+      target++;
+      startIndex++;
+      timesToRun--;
   }
 
   return array;
