@@ -25,7 +25,7 @@ function copyWithin(array, target, start, end) {
   var endIndex = length;
   var timesToRun = length - target;
 
-  if (typeof array === 'string' || typeof array === 'undefined' || array === null) {
+  if (typeof array === 'string' || typeof array === undefined || array === null) {
     throw new TypeError('First argument must be an array or an array-like object')
   }
 
