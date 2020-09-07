@@ -54,52 +54,52 @@ function splice(array, start, deleteCount, items) {
     }
   }
 
-	if (arguments.length < 2) {
-		return []
-	}
+  if (arguments.length < 2) {
+    return []
+  }
+  
+  if (arguments.length === 2) {
+    var k = 0;
+    for (var i = start; i < array.length; i++) {
+      newArray[k] = array[i];	
+      k++;
+    }
+    array.length = array.length - k;	
+  }
 
-	if (arguments.length === 2) {
-		var k = 0;
-		for (var i = start; i < array.length; i++) {
-			newArray[k] = array[i];	
-			k++;
-		}
-		array.length = array.length - k;	
-	}
+  if (arguments.length > 2) {
+    if (deleteCount > 0) {
+      var k = 0;
+      for (var i = start; i < deleteCount + start; i++) {
+        newArray[k] = array[i];
+        k++;
+      }
+      if (start + deleteCount < array.length) {
+        for (var j = start; j <= start + deleteCount; j++) {
+          array[j] = array[j + k];
+        }
+      }
+      array.length = array.length - k;
+    }
 
-	if (arguments.length > 2) {
-		if (deleteCount > 0) {
-			var k = 0;
-			for (var i = start; i < deleteCount + start; i++) {
-				newArray[k] = array[i];
-				k++;
-			}
-			if (start + deleteCount < array.length) {
-				for (var j = start; j <= start + deleteCount; j++) {
-					array[j] = array[j + k];
-				}
-			}
-			array.length = array.length - k;
-		}
+    if (arguments.length > 3) {
+      var itemCount = arguments.length - 3;
+      var itemIndex = 3;						
 
-		if (arguments.length > 3) {
-			var itemCount = arguments.length - 3;
-			var itemIndex = 3;						
-
-			var shiftIndex = array.length - 1;
-			var newEndOfArray = array.length - 1 + itemCount;
-			for (var i = newEndOfArray; i > start; i--) {
-				array[i] = array[shiftIndex];
-				shiftIndex--;
-			}
+      var shiftIndex = array.length - 1;
+      var newEndOfArray = array.length - 1 + itemCount;
+      for (var i = newEndOfArray; i > start; i--) {
+        array[i] = array[shiftIndex];
+        shiftIndex--;
+      }
 			
-			for (var i = start; i < start + itemCount; i++) {
-				array[i] = arguments[itemIndex];
-				itemIndex++;
-			}
-		}
-	}
-	return newArray;
+      for (var i = start; i < start + itemCount; i++) {
+        array[i] = arguments[itemIndex];
+        itemIndex++;
+      }
+    }
+  }
+  return newArray;
 }
 
 tests({
